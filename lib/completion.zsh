@@ -5,6 +5,8 @@ setopt complete_in_word
 setopt always_to_end
 
 unsetopt flowcontrol
+unset list_beep
+unset beep
 
 WORDCHARS=''
 
@@ -23,18 +25,19 @@ fi
 
 zstyle ':completion:*' list-colors ''
 
+zstyle ':completion:*' insert-unambiguous
 
 unsetopt MENU_COMPLETE
-#setopt AUTO_MENU
+setopt AUTO_MENU
 
 # should this be in keybindings?
 bindkey -M menuselect '^o' accept-and-infer-next-history
 
-zstyle ':completion:*:*:*:*:*' menu yes select
+zstyle ':completion:*:*:*:*:*' menu select=10
 # zstyle ':completion:*:*:*:*:processes' force-list always
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
+zstyle ':completion:*:*:*:*:processes' command "ps -U `whoami` -o pid,user,comm -w -w"
 
 # Load known hosts file for auto-completion with ssh and scp commands
 if [ -f ~/.ssh/known_hosts ]; then
